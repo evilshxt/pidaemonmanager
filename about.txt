@@ -1,0 +1,6 @@
+This mini project built by count /dev/null is mainly to test his worth and not to draw users yet. As such it will be stored in a private repository.
+
+it has nothing to do with system architecture. Mabye the future versions of this project might possess some extra features i.e if this project is remembered by its
+creator and is upgraded.
+
+This project will in someway be used as an evil payload...only to wreak havoc co fuck the world
