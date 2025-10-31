@@ -1,0 +1,2 @@
+Salted__Ê*Rg¿zÔ—ÃºlİÆu]Æféª€üKŠ¡CGÚXØiØiÕµU{é…ÓE×ÕÈlü?¡¡Y»ôV
+decrypt with openssl enc -d -aes-256-cbc -in token.txt.enc -out token.txt...... and add the password--hint: count 

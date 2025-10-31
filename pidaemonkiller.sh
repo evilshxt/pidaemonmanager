@@ -14,6 +14,18 @@ sleep 5
 ps aux | grep "$process" 2> /dev/null | grep -v grep
 process_id=$(pgrep -x $process | head -n 1) # grab the exact process ID
 
+#function to always enable services(utility aid)
+enable_service() {
+	sudo systemctl enable "${process}.service"
+	echo "$process enabled"
+}
+
+#function to always disable services
+disable_service() {
+	sudo systemctl disable "${process}.service"
+	echo "$process disabled"
+}
+
 # function to check if the process is a daemon
 isDaemon() {
 	if  systemctl list-unit-files --type=service --all | grep -q "${process}.service"; then
@@ -27,21 +39,30 @@ isDaemon() {
 			e|E)
 				if [ "$status" = "enabled" ]; then
 					echo "Daemon '$process' is already enabled"
-					echo "Use 'sudo systemctl disable $process' to disable"
+					read -p "Do you want to disable process '$process'? (y/n) :" option
+					if [ "$option" = "y" ] || [ "$option" = "Y" ]; then
+						disable_service
+					elif [ "$option" = "n"] || [ "$option" = "N" ]; then
+						echo "$process remains enabled"
+					fi
 				else
-					sudo systemctl enable "${process}.service"
-					echo "$process enabled"
+					enable_service
 				fi
 				;;
 			s|S)
 				sudo systemctl status "${process}.service";;
+
 			d|D)
 				if [ "$status" = "disabled" ]; then
 					echo "Daemon '$process' is already disabled"
-					echo "Use 'sudo systemctl enable $process' to enable"
+					read -p "Do you want to enable process '$process'? (y/n) :" option
+					if [ "$option" = "y" ] || [ "$option" = "Y" ]; then
+						enable_service
+					elif [ "$option" = "n" ] || [ "$option" = "N" ]; then
+						echo "$process remains disabled"
+					fi
 				else
-					sudo systemctl disable "${process}.service"
-					echo "$process disabled"
+					disable_service
 				fi
 				;;
 			*)
