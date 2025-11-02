@@ -6,4 +6,5 @@ creator and is upgraded.
 This project will in someway be used as an evil payload...only to wreak havoc co fuck the world
 
 #####
-This was further improved from pidaemonkiller to procsight by evilshxt
+
+This was further improved from pidaemonkiller to procsight by evilshxt — turning a simple chaos test into a full-featured cross-platform process and network management CLI.
