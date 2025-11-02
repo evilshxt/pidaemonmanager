@@ -4,3 +4,6 @@ it has nothing to do with system architecture. Mabye the future versions of this
 creator and is upgraded.
 
 This project will in someway be used as an evil payload...only to wreak havoc co fuck the world
+
+#####
+This was further improved from pidaemonkiller to procsight by evilshxt
