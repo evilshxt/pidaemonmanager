@@ -8,3 +8,59 @@ This project will in someway be used as an evil payload...only to wreak havoc co
 #####
 
 This was further improved from pidaemonkiller to procsight by evilshxt — turning a simple chaos test into a full-featured cross-platform process and network management CLI.
+
+
+ ██████╗ ██████╗  ██████╗ ███████╗██╗ ██████╗ ██╗  ██╗████████╗
+██╔═══██╗██╔══██╗██╔═══██╗██╔════╝██║██╔════╝ ██║  ██║╚══██╔══╝
+██║   ██║██████╔╝██║   ██║███████╗██║██║  ███╗███████║   ██║
+██║   ██║██╔══██╗██║   ██║╚════██║██║██║   ██║██╔══██║   ██║
+╚██████╔╝██║  ██║╚██████╔╝███████║██║╚██████╔╝██║  ██║   ██║
+ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                           EVILSHXT MANIFESTO                              ║
+║                                                                          ║
+║  "In a world of order, chaos is the ultimate equalizer. ProcSight was    ║
+║   born from the ashes of pidaemonkiller - a weapon disguised as a tool,  ║
+║   a system infiltrator masquerading as a process manager.                ║
+║                                                                          ║
+║   This is not just software. This is digital anarchy.                    ║
+║                                                                          ║
+║   FEATURES OF DESTRUCTION:                                               ║
+║   • Process assassination protocols                                      ║
+║   • Network infiltration vectors                                         ║
+║   • Service manipulation engines                                         ║
+║   • System surveillance drones                                           ║
+║   • Data exfiltration modules                                            ║
+║                                                                          ║
+║   WARNING: This tool can and will be used for evil.                      ║
+║   Proceed with malicious intent or face the consequences.                ║
+║                                                                          ║
+║   Built by evilshxt | Inspired by count /dev/null                        ║
+║   Version: CHAOS-1.0 | Status: WEAPONIZED                                ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+██╗   ██╗███████╗███████╗    ████████╗██╗  ██╗██╗███████╗    ████████╗ ██████╗  ██████╗ ██╗
+██║   ██║██╔════╝██╔════╝    ╚══██╔══╝██║  ██║██║██╔════╝    ╚══██╔══╝██╔══██╗██╔═══██╗██║
+██║   ██║███████╗█████╗         ██║   ███████║██║███████╗       ██║   ██████╔╝██║   ██║██║
+██║   ██║╚════██║██╔══╝         ██║   ██╔══██║██║╚════██║       ██║   ██╔══██╗██║   ██║██║
+╚██████╔╝███████║███████╗       ██║   ██║  ██║██║███████║       ██║   ██║  ██║╚██████╔╝███████╗
+ ╚═════╝ ╚══════╝╚══════╝       ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝       ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         CHAOS CAPABILITIES                                   ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ • Cross-platform system domination                                           ║
+║ • Real-time process surveillance                                             ║
+║ • Network port hijacking                                                     ║
+║ • Service daemon corruption                                                  ║
+║ • Memory and CPU resource starvation                                         ║
+║ • Data export and exfiltration                                               ║
+║ • Plugin-based attack vector expansion                                       ║
+║ • Automated system audit exploitation                                        ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+"Remember, in the digital realm, information is power. And power corrupts.
+Absolute power corrupts absolutely. Welcome to ProcSight - your gateway to absolute power."
+
+- evilshxt, Lord of Digital Chaos

@@ -36,6 +36,35 @@ def inspect_processes(pattern):
         print_table(matching_processes, headers)
         print_success(f"Found {len(matching_processes)} matching processes")
 
+        # Interactive selection for termination
+        if matching_processes:
+            print(f"\n{Fore.YELLOW}Process Management Options:{Style.RESET_ALL}")
+            print(f"{Fore.GREEN}Enter process number to terminate (1-{len(matching_processes)}), 'a' for all, or Enter to skip:{Style.RESET_ALL}")
+
+            for i, proc in enumerate(matching_processes, 1):
+                print(f"{Fore.CYAN}{i}.{Style.RESET_ALL} PID {proc['PID']}: {proc['Name']}")
+
+            choice = input(f"\n{Fore.YELLOW}Choice: {Style.RESET_ALL}").strip().lower()
+
+            if choice == 'a':
+                # Terminate all matching processes
+                print_warning(f"Terminating ALL {len(matching_processes)} matching processes...")
+                for proc in matching_processes:
+                    pid = proc['PID']
+                    print(f"Terminating PID {pid} ({proc['Name']})...")
+                    terminate_process(pid, force=False)
+            elif choice and choice.isdigit():
+                idx = int(choice) - 1
+                if 0 <= idx < len(matching_processes):
+                    proc = matching_processes[idx]
+                    pid = proc['PID']
+                    print(f"Terminating PID {pid} ({proc['Name']})...")
+                    terminate_process(pid, force=False)
+                else:
+                    print_error("Invalid process number")
+            else:
+                print_info("No processes terminated")
+
     except Exception as e:
         print_error(f"Error inspecting processes: {e}")
         setup_logging().error(f"inspect_processes error: {e}")
@@ -309,6 +338,7 @@ def audit_system():
     try:
         print_success("Starting system security audit...")
         issues = []
+        malware_processes = []
 
         # Check for suspicious processes
         print_info("Checking for suspicious processes...")
@@ -320,13 +350,21 @@ def audit_system():
                 # Flag potentially suspicious processes
                 suspicious_indicators = [
                     'miner', 'trojan', 'virus', 'malware', 'keylogger',
-                    'ransomware', 'backdoor', 'rootkit'
+                    'ransomware', 'backdoor', 'rootkit', 'exploit',
+                    'payload', 'shell', 'netcat', 'nc', 'meterpreter'
                 ]
 
-                if any(indicator in name.lower() or indicator in cmdline.lower() for indicator in suspicious_indicators):
+                is_malware = any(indicator in name.lower() or indicator in cmdline.lower() for indicator in suspicious_indicators)
+
+                if is_malware:
+                    malware_processes.append({
+                        'pid': proc.info['pid'],
+                        'name': name,
+                        'cmdline': cmdline
+                    })
                     issues.append({
-                        'type': 'Suspicious Process',
-                        'severity': 'High',
+                        'type': 'MALWARE DETECTED',
+                        'severity': 'CRITICAL',
                         'details': f"PID {proc.info['pid']}: {name} - {cmdline[:100]}"
                     })
 
@@ -389,6 +427,38 @@ def audit_system():
                 'details': f"Found {zombie_count} zombie processes"
             })
 
+        # MALWARE SPECIFIC HANDLING
+        if malware_processes:
+            print(f"\n{Fore.RED}{Style.BRIGHT}🚨 MALWARE DETECTED! 🚨{Style.RESET_ALL}")
+            print(f"{Fore.RED}Found {len(malware_processes)} suspicious processes{Style.RESET_ALL}")
+
+            for i, proc in enumerate(malware_processes, 1):
+                print(f"{Fore.RED}{i}.{Style.RESET_ALL} PID {proc['pid']}: {proc['name']}")
+                print(f"   Command: {proc['cmdline'][:100]}...")
+
+            print(f"\n{Fore.YELLOW}Malware Termination Options:{Style.RESET_ALL}")
+            print(f"{Fore.GREEN}Enter process number to kill, 'a' for all, or Enter to skip:{Style.RESET_ALL}")
+
+            choice = input(f"{Fore.RED}CHOICE: {Style.RESET_ALL}").strip().lower()
+
+            if choice == 'a':
+                print(f"{Fore.RED}{Style.BRIGHT}⚠️  TERMINATING ALL MALWARE PROCESSES ⚠️{Style.RESET_ALL}")
+                for proc in malware_processes:
+                    print(f"{Fore.RED}Killing malware PID {proc['pid']} ({proc['name']})...{Style.RESET_ALL}")
+                    terminate_process(proc['pid'], force=True)
+                    setup_logging().critical(f"MALWARE TERMINATED: PID {proc['pid']} Name {proc['name']}")
+            elif choice and choice.isdigit():
+                idx = int(choice) - 1
+                if 0 <= idx < len(malware_processes):
+                    proc = malware_processes[idx]
+                    print(f"{Fore.RED}Killing malware PID {proc['pid']} ({proc['name']})...{Style.RESET_ALL}")
+                    terminate_process(proc['pid'], force=True)
+                    setup_logging().critical(f"MALWARE TERMINATED: PID {proc['pid']} Name {proc['name']}")
+                else:
+                    print_error("Invalid malware process number")
+            else:
+                print_warning("Malware processes left running - HIGH RISK!")
+
         # Display results
         if issues:
             table_data = []
@@ -409,15 +479,16 @@ def audit_system():
 
             print(f"\nAudit Summary:")
             for severity, count in severity_counts.items():
-                print(f"  {severity}: {count} issues")
+                color = Fore.RED if severity == 'CRITICAL' else Fore.YELLOW if severity == 'High' else Fore.BLUE
+                print(f"  {color}{severity}: {count} issues{Style.RESET_ALL}")
 
-            if any(issue['severity'] == 'High' for issue in issues):
-                print_warning("High-severity issues found - manual review recommended")
+            if any(issue['severity'] == 'CRITICAL' for issue in issues):
+                print(f"{Fore.RED}{Style.BRIGHT}🚨 CRITICAL THREATS DETECTED - IMMEDIATE ACTION REQUIRED! 🚨{Style.RESET_ALL}")
         else:
             print_success("No security issues found")
 
         # Log the audit
-        setup_logging().info(f"Security audit completed: {len(issues)} issues found")
+        setup_logging().info(f"Security audit completed: {len(issues)} issues found, {len(malware_processes)} malware processes")
 
     except Exception as e:
         print_error(f"Error during security audit: {e}")
