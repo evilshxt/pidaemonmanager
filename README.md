@@ -249,6 +249,6 @@ This project is licensed under the **MIT License** — feel free to fork, extend
 
 ## 🧑‍💻 Author
 
-**ProcSight** is maintained by [Your Name or Alias].
+**ProcSight** is maintained by Elite Wednesday.
 
 > "Transparency is power — ProcSight lets you *see* your system."
